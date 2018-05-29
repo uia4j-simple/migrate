@@ -52,10 +52,10 @@ view.compare.checkNullable=[true/false]
 view.compare.checkDataSize=[true/false]
 ```
 
-## Usage
+## Usage (from java)
 
 ```
-> java -jar migrate-0.0.1.jar
+> java -jar migrate-0.0.1-SNAPSHOT.jar
     -c <commnad>
     -ds <db>
     -dt <db>
