@@ -69,4 +69,20 @@ public class SimpleDatabaseToolTest {
 
         SimpleDatabaseTool.main(args);
     }
+
+    @Test
+    public void testCreateTmd() throws Exception {
+        String[] args = new String[] {
+                "-c",
+                "create",
+                "-ds",
+                "tmd",
+                "-dt",
+                "archtest",
+                "--table-prefix",
+                "zzt_"
+        };
+
+        SimpleDatabaseTool.main(args);
+    }
 }
