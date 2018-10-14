@@ -58,7 +58,7 @@ public class SimpleDatabaseTool {
         System.out.println();
         HelpFormatter formatter = new HelpFormatter();
         formatter.setWidth(200);
-        formatter.printHelp("hana", options, true);
+        formatter.printHelp("java -jar migrate-0.0.1-SNAPSHOT.jar\n", options, true);
     }
 
     static Options createOptions() {
@@ -82,7 +82,7 @@ public class SimpleDatabaseTool {
 
         Option source = Option.builder("ds")
                 .longOpt("db-source")
-                .desc("source database")
+                .desc("source database, {KEY} in database.conf")
                 .required()
                 .hasArg()
                 .argName("db")
@@ -90,7 +90,7 @@ public class SimpleDatabaseTool {
 
         Option target = Option.builder("dt")
                 .longOpt("db-target")
-                .desc("destination database")
+                .desc("destination database, {KEY} in database.conf")
                 .required()
                 .hasArg()
                 .argName("db")

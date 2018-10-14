@@ -35,14 +35,14 @@ public abstract class AbstractCmd {
             System.out.println("db source: " + cl.getOptionValue("db-source") + " not found");
             return false;
         }
-        System.out.println("db source: " + this.source.getConnection().getMetaData().getURL());
+        System.out.println("db source: " + this.source.getConnection().getMetaData().getURL() + "," + this.source.getConnection().getSchema());
 
         this.target = DB.connect(cl.getOptionValue("db-target"));
-        if (this.source == null) {
+        if (this.target == null) {
             System.out.println("db target: " + cl.getOptionValue("db-target") + " not found");
             return false;
         }
-        System.out.println("db target: " + this.target.getConnection().getMetaData().getURL());
+        System.out.println("db target: " + this.target.getConnection().getMetaData().getURL() + "," + this.target.getConnection().getSchema());
 
         handleTable(cl);
         handleView(cl);

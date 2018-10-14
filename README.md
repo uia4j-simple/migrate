@@ -26,9 +26,10 @@ db.{KEY}.password=Hdb12345
 ```
 
 ###  Plan
+Plan file is used to define how to compare and create tables between two databases.
 ```
 # NAME, PREFIX
-table.query=[prefix/name]
+table.query=[NAME/PREFIX]
 table.name=[value/values]
 
 # Compare Plan
@@ -40,7 +41,7 @@ table.compare.checkNullable=[true/false]
 table.compare.checkDataSize=[true/false]
 
 # NAME, PREFIX
-view.query=[prefix/name]
+view.query=[NAME/PREFIX]
 view.name=[value/values]
 
 # Compare Plan
@@ -66,8 +67,8 @@ view.compare.checkDataSize=[true/false]
     [-v <view> | --view-prefix <prefix>]
 
  -c,--cmd <commnad>           command name to be executed. [compare,create]
- -ds,--db-source <db>         source database
- -dt,--db-target <db>         destination database
+ -ds,--db-source <db>         source database, {KEY} in database.conf
+ -dt,--db-target <db>         destination database, {KEY} in database.conf
  -p,--plan <file>             run a command with plan file
     --print-failed            print failed items only
     --print-missing           print missing items only
@@ -157,11 +158,11 @@ view.compare.checkDataSize=[true/false]
   ```
 
 ### create
-1. create __SHOP_ORDER__ table from __DEV__ & __TEST__ environment.
+1. create __SHOP_ORDER__ table from __DEV__ to __TEST__ environment.
   ```
   > create.bat -ds DEV -ds TEST -t SHOP_ORDER
   ```
-2. create __VIEW_SFC__ and __VIEW_SFC_ITEM__ views from __DEV__ & __PROD__ environment.
+2. create __VIEW_SFC__ and __VIEW_SFC_ITEM__ views from __DEV__ to __PROD__ environment.
   ```
   > create.bat -ds DEV -ds PROD -v VIEW_SFC VIEW_SFC_ITEM
   ```
