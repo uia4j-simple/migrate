@@ -43,12 +43,11 @@ public class HtksTest {
                 "-c",
                 "create",
                 "-ds",
-                "oradev",
+                "pie",
                 "-dt",
-                "dev",
+                "pieht",
                 "--view",
-                "VIEW_HOLD_SFC_DETAIL",
-                "VIEW_HOLD_SFC"
+                "view_insp_rule"
         };
 
         SimpleDatabaseTool.main(args);
