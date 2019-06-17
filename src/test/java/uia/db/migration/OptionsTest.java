@@ -119,4 +119,21 @@ public class OptionsTest {
         Assert.assertEquals(2, cl.getOptionValues("table").length);
         Assert.assertEquals(3, cl.getOptionValues("view").length);
     }
+
+    @Test
+    public void testOptions6() throws Exception {
+        String[] args = new String[] {
+                "-c", "create",
+                "-ds", "oradev",
+                "-dt", "pgdev",
+                "-t"
+            };
+
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cl = parser.parse(App.createOptions(), args);
+
+        Assert.assertEquals("create", cl.getOptionValue("cmd"));
+        Assert.assertEquals("oradev", cl.getOptionValue("ds"));
+        Assert.assertEquals("pgdev", cl.getOptionValue("dt"));
+    }
 }

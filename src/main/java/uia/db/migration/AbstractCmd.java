@@ -113,7 +113,7 @@ public abstract class AbstractCmd {
     private void handleTable(CommandLine cl) throws SQLException {
         if (cl.hasOption("table")) {
         	String[] _tables = cl.getOptionValues("table");
-        	if("*".equals(_tables[0])) {
+        	if(_tables == null) {
         		this.tables = this.source.selectTableNames();
         	}
         	else {
@@ -127,8 +127,8 @@ public abstract class AbstractCmd {
 
     private void handleView(CommandLine cl) throws SQLException {
         if (cl.hasOption("view")) {
-        	String[] _views = cl.getOptionValues("view");
-       	if("*".equals(_views[0])) {
+    	String[] _views = cl.getOptionValues("view");
+       	if(_views == null) {
         		this.views = this.source.selectViewNames();
         	}
         	else {

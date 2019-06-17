@@ -95,7 +95,7 @@
 						<manifestEntries>
 							<mode>development</mode>
 							<url>${project.url}</url>
-			                <Class-Path>libs/ngdbc.jar libs/ojdbc6.jar</Class-Path>
+			                <Class-Path>lib/ngdbc-2.1.2.jar lib/ojdbc6-11.2.0.4.jar</Class-Path>
 						</manifestEntries>
 					</archive>
  				</configuration>
@@ -111,7 +111,7 @@
 						</goals>
 						<configuration>
 							<excludeGroupIds>junit,org.hamcrest</excludeGroupIds>
-							<outputDirectory>${project.build.directory}\lib</outputDirectory>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>

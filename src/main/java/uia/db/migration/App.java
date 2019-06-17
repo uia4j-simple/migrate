@@ -41,7 +41,9 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        Properties p = new Properties(System.getProperties());
+    	System.out.println("db-migration-0.1.0-SNAPSHOT");
+
+    	Properties p = new Properties(System.getProperties());
         p.load(new FileInputStream("database.conf"));
         System.setProperties(p);
 
@@ -138,10 +140,11 @@ public class App {
     private static OptionGroup optionTable() {
         Option table = Option.builder("t")
                 .longOpt("table")
-                .desc("names of tables, e.g. -t *, -t TABLE1,TABLE2,TAEBL3")
+                .desc("names of tables, e.g. -t, -t TABLE1,TABLE2,TAEBL3")
                 .hasArgs()
                 .argName("tables")
                 .valueSeparator(',')
+                .optionalArg(true)
                 .build();
 
         Option tablePrefix = Option.builder()
@@ -161,10 +164,11 @@ public class App {
     private static OptionGroup optionView() {
         Option view = Option.builder("v")
                 .longOpt("view")
-                .desc("names of views, e.g. -v *, -v VIEW1,VIEW2,VIEW3")
+                .desc("names of views, e.g. -v, -v VIEW1,VIEW2,VIEW3")
                 .hasArgs()
                 .argName("views")
                 .valueSeparator(',')
+                .optionalArg(true)
                 .build();
 
         Option viewPrefix = Option.builder()
