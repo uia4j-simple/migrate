@@ -1,8 +1,10 @@
-package uia.simple.migrate;
+package uia.db.migration;
 
 import org.junit.Test;
 
-public class HtksTest {
+import uia.db.migration.App;
+
+public class PmsTest {
 
     @Test
     public void testCompareWithCli() throws Exception {
@@ -17,7 +19,7 @@ public class HtksTest {
                 "ZZT_"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 
     @Test
@@ -31,10 +33,10 @@ public class HtksTest {
                 "pgdev",
                 "--print-failed",
                 "-p",
-                "compare.conf"
+                "plan/compare.conf"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 
     @Test
@@ -43,14 +45,14 @@ public class HtksTest {
                 "-c",
                 "create",
                 "-ds",
-                "pie",
+                "pmslocal",
                 "-dt",
-                "pieht",
-                "--view",
-                "view_insp_rule"
+                "pmsfw",
+                "-p",
+                "plan/create.conf"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 
     @Test
@@ -66,7 +68,7 @@ public class HtksTest {
                 "ANSI_"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 
     @Test
@@ -82,6 +84,6 @@ public class HtksTest {
                 "zzt_"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 }

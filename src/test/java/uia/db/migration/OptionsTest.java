@@ -1,4 +1,4 @@
-package uia.simple.migrate;
+package uia.db.migration;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -6,11 +6,13 @@ import org.apache.commons.cli.DefaultParser;
 import org.junit.Assert;
 import org.junit.Test;
 
+import uia.db.migration.App;
+
 public class OptionsTest {
 
     @Test
     public void testHelp() throws Exception {
-        SimpleDatabaseTool.help(SimpleDatabaseTool.createOptions());
+        App.help(App.createOptions());
     }
 
     @Test
@@ -24,7 +26,7 @@ public class OptionsTest {
         };
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(SimpleDatabaseTool.createOptions(), args);
+        CommandLine cl = parser.parse(App.createOptions(), args);
 
         Assert.assertEquals("create", cl.getOptionValue("cmd"));
         Assert.assertEquals("oradev", cl.getOptionValue("ds"));
@@ -43,7 +45,7 @@ public class OptionsTest {
 
         try {
             CommandLineParser parser = new DefaultParser();
-            parser.parse(SimpleDatabaseTool.createOptions(), args);
+            parser.parse(App.createOptions(), args);
             Assert.assertTrue(false);
         }
         catch (Exception ex) {
@@ -63,7 +65,7 @@ public class OptionsTest {
         };
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(SimpleDatabaseTool.createOptions(), args);
+        CommandLine cl = parser.parse(App.createOptions(), args);
         Assert.assertNull(cl.getOptionValue("table-prefix"));
         Assert.assertNull(cl.getOptionValue("view-prefix"));
     }
@@ -79,7 +81,7 @@ public class OptionsTest {
         };
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(SimpleDatabaseTool.createOptions(), args);
+        CommandLine cl = parser.parse(App.createOptions(), args);
         Assert.assertEquals("ZD_", cl.getOptionValue("table-prefix"));
         Assert.assertEquals("VIEW_", cl.getOptionValue("view-prefix"));
     }
@@ -95,7 +97,7 @@ public class OptionsTest {
         };
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(SimpleDatabaseTool.createOptions(), args);
+        CommandLine cl = parser.parse(App.createOptions(), args);
         Assert.assertEquals(2, cl.getOptionValues("table").length);
         Assert.assertEquals(3, cl.getOptionValues("view").length);
     }

@@ -1,8 +1,10 @@
-package uia.simple.migrate;
+package uia.db.migration;
 
 import org.junit.Test;
 
-public class SimpleDatabaseToolTest {
+import uia.db.migration.App;
+
+public class HtksTest {
 
     @Test
     public void testCompareWithCli() throws Exception {
@@ -10,14 +12,14 @@ public class SimpleDatabaseToolTest {
                 "-c",
                 "compare",
                 "-ds",
-                "oradev",
+                "prodarch",
                 "-dt",
-                "pgdev",
+                "testarch",
                 "--table-prefix",
-                "BOM_"
+                "ZZT_"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 
     @Test
@@ -34,7 +36,7 @@ public class SimpleDatabaseToolTest {
                 "compare.conf"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 
     @Test
@@ -43,15 +45,14 @@ public class SimpleDatabaseToolTest {
                 "-c",
                 "create",
                 "-ds",
-                "oradev",
+                "pie",
                 "-dt",
-                "dev",
+                "pieht",
                 "--view",
-                "VIEW_HOLD_SFC_DETAIL",
-                "VIEW_HOLD_SFC"
+                "view_insp_rule"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 
     @Test
@@ -67,7 +68,7 @@ public class SimpleDatabaseToolTest {
                 "ANSI_"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 
     @Test
@@ -83,6 +84,6 @@ public class SimpleDatabaseToolTest {
                 "zzt_"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 }

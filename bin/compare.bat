@@ -1,2 +1,2 @@
 @echo off
-java -jar migrate-0.0.1-SNAPSHOT.jar -c compare %*
+java -jar db-migration.jar -c compare %*

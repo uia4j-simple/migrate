@@ -1,4 +1,4 @@
-package uia.simple.migrate;
+package uia.db.migration;
 
 import java.sql.SQLException;
 

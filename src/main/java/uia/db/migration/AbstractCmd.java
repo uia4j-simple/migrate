@@ -1,4 +1,4 @@
-package uia.simple.migrate;
+package uia.db.migration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -66,6 +66,9 @@ public abstract class AbstractCmd {
                 if (tableName != null && tableName.trim().length() > 0) {
                     this.tables = Arrays.asList(tableName.split(","));
                 }
+            	else {
+            		this.tables = this.source.selectTableNames();
+            	}
             }
             else if ("prefix".equalsIgnoreCase(tableQuery)) {
                 this.tables = this.source.selectTableNames(tableName);
@@ -79,6 +82,9 @@ public abstract class AbstractCmd {
                 if (viewName != null && viewName.trim().length() > 0) {
                     this.views.addAll(Arrays.asList(viewName.split(",")));
                 }
+            	else {
+            		this.views = this.source.selectViewNames();
+            	}
             }
             else if ("prefix".equalsIgnoreCase(viewQuery)) {
                 this.views.addAll(this.source.selectViewNames(viewName));
@@ -88,7 +94,13 @@ public abstract class AbstractCmd {
 
     private void handleTable(CommandLine cl) throws SQLException {
         if (cl.hasOption("table")) {
-            this.tables = Arrays.asList(cl.getOptionValues("table"));
+        	String[] _tables = cl.getOptionValues("table");
+        	if("*".equals(_tables[0])) {
+        		this.tables = this.source.selectTableNames();
+        	}
+        	else {
+                this.tables = Arrays.asList(_tables);
+        	}
         }
         else if (cl.hasOption("table-prefix")) {
             this.tables = this.source.selectTableNames(cl.getOptionValue("table-prefix"));
@@ -97,7 +109,13 @@ public abstract class AbstractCmd {
 
     private void handleView(CommandLine cl) throws SQLException {
         if (cl.hasOption("view")) {
-            this.views = Arrays.asList(cl.getOptionValues("view"));
+        	String[] _views = cl.getOptionValues("view");
+       	if("*".equals(_views[0])) {
+        		this.views = this.source.selectViewNames();
+        	}
+        	else {
+                this.views = Arrays.asList(_views);
+        	}
         }
         else if (cl.hasOption("view-prefix")) {
             this.views = this.source.selectViewNames(cl.getOptionValue("view-prefix"));

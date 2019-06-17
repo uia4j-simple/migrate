@@ -1,4 +1,4 @@
-package uia.simple.migrate;
+package uia.db.migration;
 
 import java.io.FileInputStream;
 import java.util.Properties;
@@ -12,7 +12,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionGroup;
 import org.apache.commons.cli.Options;
 
-public class SimpleDatabaseTool {
+public class App {
 
     private static TreeMap<String, String> cmds;
 
@@ -27,7 +27,7 @@ public class SimpleDatabaseTool {
         p.load(new FileInputStream("database.conf"));
         System.setProperties(p);
 
-        Options options = SimpleDatabaseTool.createOptions();
+        Options options = App.createOptions();
 
         System.out.println();
         CommandLine cl = null;
@@ -58,7 +58,7 @@ public class SimpleDatabaseTool {
         System.out.println();
         HelpFormatter formatter = new HelpFormatter();
         formatter.setWidth(200);
-        formatter.printHelp("java -jar migrate-0.0.1-SNAPSHOT.jar\n", options, true);
+        formatter.printHelp("java -jar db-migration.jar\n", options, true);
     }
 
     static Options createOptions() {
@@ -82,7 +82,7 @@ public class SimpleDatabaseTool {
 
         Option source = Option.builder("ds")
                 .longOpt("db-source")
-                .desc("source database, {KEY} in database.conf")
+                .desc("source database, <db> defined in database.conf")
                 .required()
                 .hasArg()
                 .argName("db")
@@ -90,7 +90,7 @@ public class SimpleDatabaseTool {
 
         Option target = Option.builder("dt")
                 .longOpt("db-target")
-                .desc("destination database, {KEY} in database.conf")
+                .desc("destination database, <db> defined in database.conf")
                 .required()
                 .hasArg()
                 .argName("db")
@@ -98,7 +98,7 @@ public class SimpleDatabaseTool {
 
         Option plan = Option.builder("p")
                 .longOpt("plan")
-                .desc("run a command with plan file")
+                .desc("run a command depending on the plan file")
                 .hasArg()
                 .argName("file")
                 .build();
@@ -120,15 +120,15 @@ public class SimpleDatabaseTool {
     private static OptionGroup optionTable() {
         Option table = Option.builder("t")
                 .longOpt("table")
-                .desc("names of tables")
+                .desc("names of tables, e.g. -t *, -t TABLE1,TABLE2,TAEBL3")
                 .hasArgs()
-                .argName("table")
+                .argName("tables")
                 .valueSeparator(',')
                 .build();
 
         Option tablePrefix = Option.builder()
                 .longOpt("table-prefix")
-                .desc("table's name prefix")
+                .desc("prefix of table name")
                 .hasArg()
                 .argName("prefix")
                 .optionalArg(true)
@@ -143,15 +143,15 @@ public class SimpleDatabaseTool {
     private static OptionGroup optionView() {
         Option view = Option.builder("v")
                 .longOpt("view")
-                .desc("names of views")
+                .desc("names of views, e.g. -v *, -v VIEW1,VIEW2,VIEW3")
                 .hasArgs()
-                .argName("view")
+                .argName("views")
                 .valueSeparator(',')
                 .build();
 
         Option viewPrefix = Option.builder()
                 .longOpt("view-prefix")
-                .desc("view's name prefix")
+                .desc("prefix of view name")
                 .hasArg()
                 .argName("prefix")
                 .optionalArg(true)

@@ -1,6 +1,8 @@
-package uia.simple.migrate;
+package uia.db.migration;
 
 import org.junit.Test;
+
+import uia.db.migration.App;
 
 public class IvpTest {
 
@@ -17,7 +19,7 @@ public class IvpTest {
                 "ivp"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 
     @Test
@@ -33,6 +35,6 @@ public class IvpTest {
                 "ivp"
         };
 
-        SimpleDatabaseTool.main(args);
+        App.main(args);
     }
 }

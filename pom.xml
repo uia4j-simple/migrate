@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.uia.solution</groupId>
-	<artifactId>uia-simple-migrate</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>uia-db-migration</artifactId>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<url>https://github.com/gazer2kanlin/simple-migrate</url>
-	<name>uia-simple-migrate</name>
+	<url>https://github.com/uia4j/uia-db-migration</url>
+	<name>uia-db-migration</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -44,8 +44,18 @@
 			<version>0.2.3</version>
 		</dependency>
 	</dependencies>
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>uia4j</id>
+            <name>bintray-uia4j</name>
+            <url>https://dl.bintray.com/uia4j/maven</url>
+        </repository>
+    </repositories>
 	<build>
-		<finalName>migrate-${project.version}</finalName>
+		<finalName>db-migration</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -71,7 +81,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>uia.simple.migrate.SimpleDatabaseTool</mainClass>
+							<mainClass>uia.db.migration.App</mainClass>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
 		 					<useUniqueVersions>false</useUniqueVersions> 
@@ -140,4 +150,8 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/uia4j/uia-db-migration/issues</url>
+	</issueManagement>
 </project>
