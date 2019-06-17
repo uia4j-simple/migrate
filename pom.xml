@@ -23,14 +23,14 @@
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.4</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}\libs\ojdbc\ojdbc6.jar</systemPath>            
+			<systemPath>${project.basedir}/libs/ojdbc/ojdbc6.jar</systemPath>            
         </dependency>
 		<dependency>
 			<groupId>ngdbc</groupId>
 			<artifactId>ngdbc</artifactId>
 			<version>2.1.2</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}\libs\ngdbc\ngdbc.jar</systemPath>            
+			<systemPath>${project.basedir}/libs/ngdbc/ngdbc.jar</systemPath>            
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
