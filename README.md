@@ -65,13 +65,14 @@ db.<db>.password=Hdb12345
 
 ###  plan.conf
 Plan file is used to define how to compare and create tables between two databases.
+
 Note: properties of __table.name__ and __view name__ are __CASE SENSITIVE__
 ```
 # NAME or PREFIX, Empty will be ignore
 table.query=[NAME/PREFIX]
 table.name=[value/values]
 
-# Compare output options, if default is ture, other options will be ignore.
+# Compare output options, if default is true, other options will be ignore.
 table.compare.default=[true/false]
 table.compare.strictVarchar=[true/false]
 table.compare.strictNumeric=[true/false]
@@ -83,7 +84,7 @@ table.compare.checkDataSize=[true/false]
 view.query=[NAME/PREFIX]
 view.name=[value/values]
 
-# Compare output options, if default is ture, other options will be ignore.
+# Compare output options, if default is true, other options will be ignore.
 view.compare.default=[true/false]
 view.compare.strictVarchar=[true/false]
 view.compare.strictNumeric=[true/false]
@@ -92,7 +93,7 @@ view.compare.checkNullable=[true/false]
 view.compare.checkDataSize=[true/false]
 ```
 ## Example (Widows Batch)
-### database.conf
+###  database.conf
  Define __DEV__, __TEST__ database sources.
   ```
   # DEV (PostgreSQL)
@@ -131,20 +132,20 @@ view.compare.checkDataSize=[true/false]
   view.query=prefix
   view.name=VIEW_
 
-  # View: Output options, if default is ture, other options will be ignore.
+  # View: Output options, if default is true, other options will be ignore.
   view.compare.default=true
   ```
 
 ### compare
-1. Compare __SHOP_ORDER__ table between __DEV__ & __TEST__ environment.
+1. Compare __SHOP_ORDER__ table from __DEV__ to __TEST__ environment.
   ```
   > compare.bat -ds DEV -ds TEST -t SHOP_ORDER
   ```
-2. Compare tables with __SFC__ prefix and diplay ___missing___ only.
+2. Compare tables with __SFC__ prefix and diplay ___missing___ only from __DEV__ to __TEST__ environment.
   ```
   > compare.bat -ds DEV -ds TEST --table-prefix SFC --print-missing
   ```
-3. Compare using __plan.coof__ and display ___failed___ only.
+3. Compare using __plan.conf__ and display ___failed___ only from __TEST__ to __DEV__ environment.
   ```
   > compare.bat -ds TEST -ds DEV --plan plan.conf
   ```
@@ -158,7 +159,7 @@ view.compare.checkDataSize=[true/false]
   ```
   > create.bat -ds TEST -ds DEV -v VIEW_SFC,VIEW_SFC_ITEM
   ```
-3. Create tables and views using __plan.coof__ from __TEST__ to __DEV__ environment.
+3. Create tables and views using __plan.conf__ from __TEST__ to __DEV__ environment.
   ```
   > create.bat -ds TEST -ds DEV --plan plan.conf
   ```
