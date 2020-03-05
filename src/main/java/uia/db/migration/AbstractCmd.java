@@ -27,8 +27,9 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Options;
 
-import uia.utils.dao.Database;
+import uia.dao.Database;
 
 public abstract class AbstractCmd {
 
@@ -41,9 +42,11 @@ public abstract class AbstractCmd {
     protected List<String> views;
 
     public AbstractCmd() {
-        this.tables = new ArrayList<String>();
-        this.views = new ArrayList<String>();
+        this.tables = new ArrayList<>();
+        this.views = new ArrayList<>();
     }
+	
+    public abstract Options createOptions();
 
     public abstract void run(CommandLine cl) throws SQLException, IOException;
 

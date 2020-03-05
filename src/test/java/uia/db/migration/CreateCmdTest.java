@@ -24,19 +24,11 @@ import org.apache.commons.cli.DefaultParser;
 import org.junit.Assert;
 import org.junit.Test;
 
-import uia.db.migration.App;
-
-public class OptionsTest {
+public class CreateCmdTest {
 
     @Test
-    public void testHelp() throws Exception {
-        App.help(App.createOptions());
-    }
-
-    @Test
-    public void testOptions1() throws Exception {
+    public void test1() throws Exception {
         String[] args = new String[] {
-                "-c", "create",
                 "-ds", "oradev",
                 "-dt", "pgdev",
                 "--table-prefix", "ANSI_",
@@ -44,9 +36,8 @@ public class OptionsTest {
         };
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(App.createOptions(), args);
+        CommandLine cl = parser.parse(new CreateCmd().createOptions(), args);
 
-        Assert.assertEquals("create", cl.getOptionValue("cmd"));
         Assert.assertEquals("oradev", cl.getOptionValue("ds"));
         Assert.assertEquals("pgdev", cl.getOptionValue("dt"));
         Assert.assertEquals("ANSI_", cl.getOptionValue("table-prefix"));
@@ -54,16 +45,15 @@ public class OptionsTest {
     }
 
     @Test
-    public void testOptions2() {
+    public void test2() {
         String[] args = new String[] {
-                "-c", "create",
                 "-ds", "oradev",
                 "--table-prefix", "ANSI_"
         };
 
         try {
             CommandLineParser parser = new DefaultParser();
-            parser.parse(App.createOptions(), args);
+            parser.parse(new CreateCmd().createOptions(), args);
             Assert.assertTrue(false);
         }
         catch (Exception ex) {
@@ -73,9 +63,8 @@ public class OptionsTest {
     }
 
     @Test
-    public void testOptions3() throws Exception {
+    public void test3() throws Exception {
         String[] args = new String[] {
-                "-c", "create",
                 "-ds", "oradev",
                 "-dt", "pgdev",
                 "--table-prefix",
@@ -83,7 +72,7 @@ public class OptionsTest {
         };
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(App.createOptions(), args);
+        CommandLine cl = parser.parse(new CreateCmd().createOptions(), args);
         Assert.assertNull(cl.getOptionValue("table-prefix"));
         Assert.assertNull(cl.getOptionValue("view-prefix"));
     }
@@ -91,7 +80,6 @@ public class OptionsTest {
     @Test
     public void testOptions4() throws Exception {
         String[] args = new String[] {
-                "-c", "create",
                 "-ds", "oradev",
                 "-dt", "pgdev",
                 "--table-prefix=ZD_",
@@ -99,7 +87,7 @@ public class OptionsTest {
         };
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(App.createOptions(), args);
+        CommandLine cl = parser.parse(new CreateCmd().createOptions(), args);
         Assert.assertEquals("ZD_", cl.getOptionValue("table-prefix"));
         Assert.assertEquals("VIEW_", cl.getOptionValue("view-prefix"));
     }
@@ -107,7 +95,6 @@ public class OptionsTest {
     @Test
     public void testOptions5() throws Exception {
         String[] args = new String[] {
-                "-c", "create",
                 "-ds", "oradev",
                 "-dt", "pgdev",
                 "--table=ZD_SFC,ZD_SFC_ITEM",
@@ -115,7 +102,7 @@ public class OptionsTest {
         };
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(App.createOptions(), args);
+        CommandLine cl = parser.parse(new CreateCmd().createOptions(), args);
         Assert.assertEquals(2, cl.getOptionValues("table").length);
         Assert.assertEquals(3, cl.getOptionValues("view").length);
     }
@@ -123,16 +110,14 @@ public class OptionsTest {
     @Test
     public void testOptions6() throws Exception {
         String[] args = new String[] {
-                "-c", "create",
                 "-ds", "oradev",
                 "-dt", "pgdev",
                 "-t"
             };
 
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(App.createOptions(), args);
+        CommandLine cl = parser.parse(new CreateCmd().createOptions(), args);
 
-        Assert.assertEquals("create", cl.getOptionValue("cmd"));
         Assert.assertEquals("oradev", cl.getOptionValue("ds"));
         Assert.assertEquals("pgdev", cl.getOptionValue("dt"));
     }

@@ -22,10 +22,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionGroup;
+import org.apache.commons.cli.Options;
 
-import uia.utils.dao.ComparePlan;
-import uia.utils.dao.CompareResult;
-import uia.utils.dao.TableType;
+import uia.dao.ComparePlan;
+import uia.dao.CompareResult;
+import uia.dao.TableType;
 
 public class CompareCmd extends AbstractCmd {
 
@@ -48,9 +51,16 @@ public class CompareCmd extends AbstractCmd {
         for (String tableName : this.tables) {
             TableType table1 = this.source.selectTable(tableName, false);
             TableType table2 = this.target.selectTable(tableName, false);
-            CompareResult cr = table1 == null
-                    ? new CompareResult(tableName, false, "table not found")
-                    : table1.sameAs(table2, this.tablePlan);
+            CompareResult cr;
+            if(table1 == null) {
+            	cr = new CompareResult(tableName);
+            	cr.setPassed(false);
+            	cr.addMessage("table not found");
+            }
+            else {
+            	cr = table1.sameAs(table2, this.tablePlan);
+            }
+            
             if (printMissing) {
                 if (cr.isMissing()) {
                     cr.print(false);
@@ -65,9 +75,16 @@ public class CompareCmd extends AbstractCmd {
         for (String viewName : this.views) {
             TableType view1 = this.source.selectTable(viewName, false);
             TableType view2 = this.target.selectTable(viewName, false);
-            CompareResult cr = view1 == null
-                    ? new CompareResult(viewName, false, "view not found")
-                    : view1.sameAs(view2, this.viewPlan);
+
+            CompareResult cr;
+            if(view1 == null) {
+            	cr = new CompareResult(viewName);
+            	cr.setPassed(false);
+            	cr.addMessage("view not found");
+            }
+            else {
+                cr = view1.sameAs(view2, this.viewPlan);
+            }
             if (printMissing) {
                 if (cr.isMissing()) {
                     cr.print(false);
@@ -97,5 +114,96 @@ public class CompareCmd extends AbstractCmd {
             boolean a5 = "true".equals(System.getProperty("view.compare.checkDataSize"));
             this.viewPlan = new ComparePlan(a1, a2, a3, a4, a5);
         }
+    }
+
+	@Override
+	public Options createOptions() {
+        Option printFailed = Option.builder()
+                .longOpt("print-failed")
+                .desc("print failed items only")
+                .build();
+
+        Option printMissing = Option.builder()
+                .longOpt("print-missing")
+                .desc("print missing items only")
+                .build();
+
+        Option source = Option.builder("ds")
+                .longOpt("db-source")
+                .desc("source database, <db> defined in database.conf")
+                .required()
+                .hasArg()
+                .argName("db")
+                .build();
+
+        Option target = Option.builder("dt")
+                .longOpt("db-target")
+                .desc("destination database, <db> defined in database.conf")
+                .required()
+                .hasArg()
+                .argName("db")
+                .build();
+
+        Option plan = Option.builder("p")
+                .longOpt("plan")
+                .desc("run a command depending on the plan file")
+                .hasArg()
+                .argName("file")
+                .build();
+
+        return new Options()
+                .addOption(source)
+                .addOption(target)
+                .addOption(plan)
+                .addOption(printFailed)
+                .addOption(printMissing)
+                .addOptionGroup(optionTable())
+                .addOptionGroup(optionView());
+	}
+
+    private static OptionGroup optionTable() {
+        Option table = Option.builder("t")
+                .longOpt("table")
+                .desc("names of tables, e.g. -t, -t TABLE1,TABLE2,TAEBL3")
+                .hasArgs()
+                .argName("tables")
+                .valueSeparator(',')
+                .optionalArg(true)
+                .build();
+
+        Option tablePrefix = Option.builder()
+                .longOpt("table-prefix")
+                .desc("prefix of table name")
+                .hasArg()
+                .argName("prefix")
+                .optionalArg(true)
+                .build();
+
+        return new OptionGroup()
+                .addOption(table)
+                .addOption(tablePrefix);
+    }
+
+    private static OptionGroup optionView() {
+        Option view = Option.builder("v")
+                .longOpt("view")
+                .desc("names of views, e.g. -v, -v VIEW1,VIEW2,VIEW3")
+                .hasArgs()
+                .argName("views")
+                .valueSeparator(',')
+                .optionalArg(true)
+                .build();
+
+        Option viewPrefix = Option.builder()
+                .longOpt("view-prefix")
+                .desc("prefix of view name")
+                .hasArg()
+                .argName("prefix")
+                .optionalArg(true)
+                .build();
+
+        return new OptionGroup()
+                .addOption(view)
+                .addOption(viewPrefix);
     }
 }

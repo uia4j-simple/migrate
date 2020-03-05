@@ -20,10 +20,10 @@ package uia.db.migration;
 
 import java.sql.SQLException;
 
-import uia.utils.dao.Database;
-import uia.utils.dao.hana.Hana;
-import uia.utils.dao.ora.Oracle;
-import uia.utils.dao.pg.PostgreSQL;
+import uia.dao.Database;
+import uia.dao.hana.Hana;
+import uia.dao.ora.Oracle;
+import uia.dao.pg.PostgreSQL;
 
 public class DB {
 
